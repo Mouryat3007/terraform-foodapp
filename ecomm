@@ -1,0 +1,14 @@
+To create ec2 server and deploy app
+
+# EC2 server
+resource "aws_instance" "ecomm-ec2" {
+  ami           = "ami-0dee0f906cf114191"
+  instance_type = "t2.micro"
+  subnet_id = aws_subnet.ecomm-sn.id
+  vpc_security_group_ids = [aws_security_group.ecomm-app.id]
+  key_name = "mourya"
+  user_data = file("ecomm.sh")
+  tags = {
+    Name = "ecomm server"
+  }
+}
